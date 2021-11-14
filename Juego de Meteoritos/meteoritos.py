@@ -21,6 +21,14 @@ def meteoritos():
 
         ventana.blit(fondo, (0,0))
         nave.dibujar(ventana)
+
+        if len(nave.listaDisparo) > 0:
+            for i in nave.listaDisparo:
+                i.dibujar(ventana)
+                i.recorrido()
+                if i.rect.top < -10:
+                    nave.listaDisparo.remove(i)
+
         nave.mover()
 
         for evento in pygame.event.get():
@@ -33,7 +41,8 @@ def meteoritos():
                 elif evento.key == K_RIGHT:
                     nave.rect.right = nave.rect.right + nave.velocidad
                 elif evento.key == K_SPACE:
-                    nave.disparar()
+                    x,y = nave.rect.center
+                    nave.disparar(x,y)
 
         pygame.display.update()
 
