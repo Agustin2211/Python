@@ -8,7 +8,7 @@ class Nave(pygame.sprite.Sprite):
         self.rect = self.imagenNave.get_rect()
         self.rect.centerx = 240
         self.rect.centery = 690
-        self.velocidad = 10
+        self.velocidad = 25
         self.vida = True
         self.listaDisparo = []
 
