@@ -11,6 +11,7 @@ class Nave(pygame.sprite.Sprite):
         self.velocidad = 25
         self.vida = True
         self.listaDisparo = []
+        self.sonidoDisparo = pygame.mixer.Sound("C:/Users/Agustín/GitHub/Python/Juego de Meteoritos/resources/sounds/disparos.aiff")
 
     def mover(self):
         if (self.vida == True):
@@ -22,6 +23,8 @@ class Nave(pygame.sprite.Sprite):
     def disparar(self, x, y):
         misil = disparo.Misil(x, y)
         self.listaDisparo.append(misil)
+        self.sonidoDisparo.play()
+
 
     def dibujar(self, superficie):
         if self.vida == True:

@@ -25,6 +25,13 @@ def meteoritos():
     nave = jugador.Nave()
     contador = 0
 
+    #SONIDOS
+
+    pygame.mixer.music.load("C:/Users/Agustín/GitHub/Python/Juego de Meteoritos/resources/sounds/fondo.wav")
+    pygame.mixer.music.play(3)
+    sonidoColision = pygame.mixer.Sound("C:/Users/Agustín/GitHub/Python/Juego de Meteoritos/resources/sounds/colision.aiff")
+
+
     #CICLO DEL JUEGO
     while True:
 
@@ -42,6 +49,11 @@ def meteoritos():
                 i.recorrido()
                 if(i.rect.top > ALTO):
                     listaAsteroide.remove(i)
+                else:
+                    if(i.rect.colliderect(nave.rect)):
+                        listaAsteroide.remove(i)
+                        sonidoColision.play()
+                        #gameOver()
 
         if len(nave.listaDisparo) > 0:
             for i in nave.listaDisparo:
@@ -49,8 +61,15 @@ def meteoritos():
                 i.recorrido()
                 if i.rect.top < -10:
                     nave.listaDisparo.remove(i)
+                else:
+                    for meteoritos in listaAsteroide:
+                        if(i.rect.colliderect(meteoritos)):
+                            listaAsteroide.remove(meteoritos)
+                            nave.listaDisparo.remove(i)
 
         nave.mover()
+
+        
 
         for evento in pygame.event.get():
             if evento.type == QUIT:
